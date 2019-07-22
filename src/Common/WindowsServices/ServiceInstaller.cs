@@ -110,6 +110,28 @@ namespace Common.WindowsServices
                 CloseServiceHandle(scm);
             }
         }
+        
+        public static void Install(string serviceName, string displayName, string fileName)
+        {
+            IntPtr scm = OpenSCManager(ScmAccessRights.AllAccess);
+
+            try
+            {
+                IntPtr service = OpenService(scm, serviceName, ServiceAccessRights.AllAccess);
+
+                if (service == IntPtr.Zero)
+                    service = CreateService(scm, serviceName, displayName, ServiceAccessRights.AllAccess, SERVICE_WIN32_OWN_PROCESS, ServiceBootFlag.AutoStart, ServiceError.Normal, fileName, null, IntPtr.Zero, null, null, null);
+
+                if (service == IntPtr.Zero)
+                    throw new ApplicationException("Failed to install service.");
+
+                CloseServiceHandle(service);
+            }
+            finally
+            {
+                CloseServiceHandle(scm);
+            }
+        }
 
         public static void InstallAndStart(string serviceName, string displayName, string fileName)
         {
@@ -190,25 +212,7 @@ namespace Common.WindowsServices
             }
         }
 
-        private static void StartService(IntPtr service)
-        {
-            SERVICE_STATUS status = new SERVICE_STATUS();
-            StartService(service, 0, 0);
-            var changedStatus = WaitForServiceStatus(service, ServiceState.StartPending, ServiceState.Running);
-            if (!changedStatus)
-                throw new ApplicationException("Unable to start service");
-        }
-
-        private static void StopService(IntPtr service)
-        {
-            SERVICE_STATUS status = new SERVICE_STATUS();
-            ControlService(service, ServiceControl.Stop, status);
-            var changedStatus = WaitForServiceStatus(service, ServiceState.StopPending, ServiceState.Stopped);
-            if (!changedStatus)
-                throw new ApplicationException("Unable to stop service");
-        }
-
-        public static ServiceState GetServiceStatus(string serviceName)
+        public static ServiceState GetServiceState(string serviceName)
         {
             IntPtr scm = OpenSCManager(ScmAccessRights.Connect);
 
@@ -231,6 +235,24 @@ namespace Common.WindowsServices
             {
                 CloseServiceHandle(scm);
             }
+        }
+
+        private static void StartService(IntPtr service)
+        {
+            SERVICE_STATUS status = new SERVICE_STATUS();
+            StartService(service, 0, 0);
+            var changedStatus = WaitForServiceStatus(service, ServiceState.StartPending, ServiceState.Running);
+            if (!changedStatus)
+                throw new ApplicationException("Unable to start service");
+        }
+
+        private static void StopService(IntPtr service)
+        {
+            SERVICE_STATUS status = new SERVICE_STATUS();
+            ControlService(service, ServiceControl.Stop, status);
+            var changedStatus = WaitForServiceStatus(service, ServiceState.StopPending, ServiceState.Stopped);
+            if (!changedStatus)
+                throw new ApplicationException("Unable to stop service");
         }
 
         private static ServiceState GetServiceStatus(IntPtr service)

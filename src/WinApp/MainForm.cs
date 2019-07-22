@@ -11,7 +11,7 @@ namespace WinApp
         {
             InitializeComponent();
         }
-
+        
         private void MainForm_Load(object sender, EventArgs e)
         {
             this.txtServiceName.Text = @"MyTraceService";
@@ -126,7 +126,7 @@ namespace WinApp
 
         private ServiceState GetServiceState(string serviceName)
         {
-            var serviceStatus = ServiceInstaller.GetServiceStatus(serviceName);
+            var serviceStatus = ServiceInstaller.GetServiceState(serviceName);
             AppendLogs(serviceStatus.ToString());
             return serviceStatus;
         }
