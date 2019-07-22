@@ -40,8 +40,10 @@ namespace WinApp
             }
 
             AppendLogs("Call InstallAndStart");
-            //for display
             ServiceInstaller.InstallAndStart(serviceName, "000-" + serviceName, servicePath);
+
+            //AppendLogs("Call Install");
+            //ServiceInstaller.Install(serviceName, "000-" + serviceName, servicePath);
             GetServiceState(serviceName);
         }
 

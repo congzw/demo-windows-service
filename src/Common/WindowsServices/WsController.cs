@@ -64,7 +64,7 @@ namespace Common.WindowsServices
                     return successResult;
                 }
 
-                ServiceInstaller.Install(ServiceName, DisplayName, ExePath);
+                ServiceInstaller.InstallAndStart(ServiceName, DisplayName, ExePath);
                 return successResult;
             }
             catch (Exception e)

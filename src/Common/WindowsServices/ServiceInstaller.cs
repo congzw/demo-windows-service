@@ -110,7 +110,7 @@ namespace Common.WindowsServices
                 CloseServiceHandle(scm);
             }
         }
-        
+
         public static void Install(string serviceName, string displayName, string fileName)
         {
             IntPtr scm = OpenSCManager(ScmAccessRights.AllAccess);
@@ -124,8 +124,15 @@ namespace Common.WindowsServices
 
                 if (service == IntPtr.Zero)
                     throw new ApplicationException("Failed to install service.");
-
-                CloseServiceHandle(service);
+                
+                try
+                {
+                    GetServiceState(serviceName);
+                }
+                finally
+                {
+                    CloseServiceHandle(service);
+                }
             }
             finally
             {
