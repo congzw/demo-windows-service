@@ -1,12 +1,24 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using Common;
 using Common.WindowsServices;
 
 namespace WinApp
 {
-    public partial class MainForm : Form
+    public partial class MainForm : AsyncForm
     {
+
+        protected override Control GetInvoker()
+        {
+            return this.txtLogs;
+        }
+
+        public override void ShowCallbackMessage(string value)
+        {
+            this.txtLogs.AppendText(value);
+        }
+
         public MainForm()
         {
             InitializeComponent();

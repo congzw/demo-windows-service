@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
-using Common.WindowsServices;
 
 namespace WinApp
 {
@@ -14,8 +11,11 @@ namespace WinApp
         [STAThread]
         static void Main()
         {
+            AppInit.SetupLog();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new ServiceManageForm());
             Application.Run(new MainForm());
         }
     }
