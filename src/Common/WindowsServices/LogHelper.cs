@@ -13,7 +13,7 @@ namespace Common.WindowsServices
 
         public void Trace(string format, params object[] args)
         {
-            TraceIt(string.Format(format, args));
+            TraceIt("[LogHelper] " + string.Format(format, args));
         }
 
         public static LogHelper Instance = new LogHelper();
