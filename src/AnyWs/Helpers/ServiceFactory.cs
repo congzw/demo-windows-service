@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿
+using System.IO;
 using System.ServiceProcess;
+using AnyWs.Bar;
 using AnyWs.Foo;
 using Common.WindowsServices;
 
@@ -9,11 +11,11 @@ namespace AnyWs.Helpers
     {
         public ServiceBase[] CreateServices()
         {
-            //bugs! todo
+            ////reflection create service start fail bugs! todo
             ////todo create by config
             //var wsMeta = new WindowsServiceMeta();
-            //wsMeta.ServiceAssemblyPath = Path.GetFullPath("AnyWs.Foo.dll");
-            //wsMeta.ServiceClassName = "AnyWs.Foo.FooService";
+            //wsMeta.ServiceAssemblyPath = Path.GetFullPath("AnyWs.Bar.dll");
+            //wsMeta.ServiceClassName = "AnyWs.Bar.BarService";
 
             //var reflectHelper = ReflectHelper.Instance;
             //var logHelper = LogHelper.Instance;
@@ -27,11 +29,18 @@ namespace AnyWs.Helpers
             //};
             //return servicesToRun;
 
+            //var servicesToRun = new ServiceBase[]
+            //{
+            //    new FooService()
+            //};
+            //return servicesToRun;
+
             var servicesToRun = new ServiceBase[]
             {
-                new FooService()
+                new BarService()
             };
             return servicesToRun;
+
         }
 
         public static ServiceFactory Instance = new ServiceFactory();

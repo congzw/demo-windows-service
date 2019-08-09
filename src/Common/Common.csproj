@@ -47,6 +47,8 @@
     <Compile Include="AsyncFormEventBus.cs" />
     <Compile Include="MyModelHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleLoopTask.cs" />
+    <Compile Include="TaskEx.cs" />
     <Compile Include="WindowsServices\WsController.cs" />
     <Compile Include="WindowsServices\LogHelper.cs" />
     <Compile Include="NamedSingleton.cs" />

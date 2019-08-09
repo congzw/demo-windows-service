@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{03D1C792-C62E-4B78-B42C-1B6D1500A6C0}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <RootNamespace>AnyWs</RootNamespace>
-    <AssemblyName>AnyWs</AssemblyName>
+    <ProjectGuid>{EF60A2F9-AC73-40D7-A2C2-BBAF2401C4A2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AnyWs.Bar</RootNamespace>
+    <AssemblyName>AnyWs.Bar</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,28 +33,23 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\ReflectHelper.cs" />
-    <Compile Include="Helpers\ServiceFactory.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="BarService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BarService.Designer.cs">
+      <DependentUpon>BarService.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AnyWs.Bar\AnyWs.Bar.csproj">
-      <Project>{ef60a2f9-ac73-40d7-a2c2-bbaf2401c4a2}</Project>
-      <Name>AnyWs.Bar</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AnyWs.Foo\AnyWs.Foo.csproj">
-      <Project>{44c728dd-2c95-4a24-bda3-7df944892ad3}</Project>
-      <Name>AnyWs.Foo</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{6fb961bb-652f-4615-9109-7620c6a294e8}</Project>
       <Name>Common</Name>

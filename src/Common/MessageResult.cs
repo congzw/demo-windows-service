@@ -1,4 +1,6 @@
-﻿namespace Common
+﻿using System.Threading.Tasks;
+
+namespace Common
 {
     public class MessageResult
     {
@@ -9,6 +11,17 @@
         public static MessageResult Create(bool success, string message, object data = null)
         {
             return new MessageResult() { Success = success, Message = message, Data = data };
+        }
+
+        public static Task<MessageResult> CreateTask(bool success, string message, object data = null)
+        {
+            //return Task.FromResult(Create(success, message, data));
+            return TaskEx.FromResult(Create(success, message, data));
+        }
+
+        public Task<MessageResult> AsTask()
+        {
+            return TaskEx.FromResult(this);
         }
 
         public static MessageResult MethodResult(string method, bool success, object data = null)
