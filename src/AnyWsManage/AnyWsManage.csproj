@@ -77,6 +77,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AnyWs.Bar\AnyWs.Bar.csproj">
+      <Project>{ef60a2f9-ac73-40d7-a2c2-bbaf2401c4a2}</Project>
+      <Name>AnyWs.Bar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AnyWs.Foo\AnyWs.Foo.csproj">
+      <Project>{44c728dd-2c95-4a24-bda3-7df944892ad3}</Project>
+      <Name>AnyWs.Foo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AnyWs\AnyWs.csproj">
       <Project>{03d1c792-c62e-4b78-b42c-1b6d1500a6c0}</Project>
       <Name>AnyWs</Name>

@@ -6,6 +6,7 @@ namespace Common.WindowsServices
     {
         public LogHelper()
         {
+            Prefix = "[LogHelper] ";
             TraceIt = s => { System.Diagnostics.Trace.WriteLine(s); };
         }
 
@@ -13,9 +14,12 @@ namespace Common.WindowsServices
 
         public void Trace(string format, params object[] args)
         {
-            TraceIt("[LogHelper] " + string.Format(format, args));
+            TraceIt(Prefix + string.Format(format, args));
         }
 
+        public string Prefix { get; set; }
+
         public static LogHelper Instance = new LogHelper();
+        public static Func<LogHelper> Resolve = () => new LogHelper();
     }
 }

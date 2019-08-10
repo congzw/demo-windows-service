@@ -8,9 +8,11 @@ namespace AnyWs.Bar
 {
     public partial class BarService : ServiceBase
     {
+        private readonly LogHelper _logHelper = LogHelper.Instance;
         public BarService()
         {
             InitializeComponent();
+            _logHelper.Prefix = "[SimpleLog][BarService] ";
             LoopTask = new SimpleLoopTask();
             Init(LoopTask);
         }
@@ -22,11 +24,11 @@ namespace AnyWs.Bar
             loopTask.LoopSpan = TimeSpan.FromSeconds(3);
             loopTask.LoopAction = () =>
             {
-                LogHelper.Instance.Trace(string.Format("demo long running task is running at {0:yyyy-MM-dd HH:mm:ss:fff} in thread {1}", DateTime.Now, Thread.CurrentThread.ManagedThreadId));
+                _logHelper.Trace(string.Format("demo long running task is running at {0:yyyy-MM-dd HH:mm:ss:fff} in thread {1}", DateTime.Now, Thread.CurrentThread.ManagedThreadId));
             };
             loopTask.AfterExitLoopAction = () =>
             {
-                LogHelper.Instance.Trace(string.Format(">>> demo long running task is stopping at {0:yyyy-MM-dd HH:mm:ss:fff} in thread {1}", DateTime.Now, Thread.CurrentThread.ManagedThreadId));
+                _logHelper.Trace(string.Format(">>> demo long running task is stopping at {0:yyyy-MM-dd HH:mm:ss:fff} in thread {1}", DateTime.Now, Thread.CurrentThread.ManagedThreadId));
             };
         }
 
