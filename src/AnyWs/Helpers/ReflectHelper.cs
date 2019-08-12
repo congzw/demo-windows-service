@@ -14,22 +14,31 @@ namespace AnyWs.Helpers
 
         public IDictionary<string, Assembly> LoadedAssemblies { get; set; }
 
-        public object CreateInstance(string dllPath, string typeName)
+        public object TryCreateInstance(string assemblyFile, string typeName, bool supportMultiLocationAssemblies = false)
         {
-            if (!LoadedAssemblies.ContainsKey(dllPath))
+            if (!LoadedAssemblies.ContainsKey(assemblyFile))
             {
-                LoadedAssemblies.Add(dllPath, Assembly.LoadFile(dllPath));
+                LoadedAssemblies.Add(assemblyFile, LoadFrom(assemblyFile, supportMultiLocationAssemblies));
             }
 
-            LoadedAssemblies.TryGetValue(dllPath, out var assembly);
-            if (assembly == null)
+            LoadedAssemblies.TryGetValue(assemblyFile, out var assembly);
+            return assembly == null ? null : Create(assembly, typeName);
+        }
+        
+        private Assembly LoadFrom(string assemblyFile, bool supportMultiLocationAssemblies = false)
+        {
+            if (supportMultiLocationAssemblies)
             {
-                return null;
+                return Assembly.LoadFile(assemblyFile);
             }
+            return Assembly.LoadFrom(assemblyFile);
+        }
+        private object Create(Assembly assembly, string typeName)
+        {
             var theType = assembly.GetType(typeName);
             return Activator.CreateInstance(theType);
         }
-        
+
         public static ReflectHelper Instance = new ReflectHelper();
     }
 }

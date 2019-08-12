@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using AnyWs.Helpers;
 
 namespace AnyWsManage
 {
@@ -13,7 +14,7 @@ namespace AnyWsManage
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            
             AppInit.SetupLog();
             if (!AppInit.IsRunAsAdmin())
             {

@@ -2,8 +2,6 @@
 using System;
 using System.IO;
 using System.ServiceProcess;
-using AnyWs.Bar;
-using AnyWs.Foo;
 using Common;
 using Common.WindowsServices;
 
@@ -16,8 +14,7 @@ namespace AnyWs.Helpers
         {
             _logHelper.Prefix = "[SimpleLog][ServiceFactory] ";
         }
-
-
+        
         public ServiceBase[] CreateServices()
         {
             //todo create by config
@@ -34,7 +31,7 @@ namespace AnyWs.Helpers
                 {
                     throw new ApplicationException("文件丢失：" + wsMeta.ServiceAssemblyPath);
                 }
-                var service = reflectHelper.CreateInstance(wsMeta.ServiceAssemblyPath, wsMeta.ServiceClassName);
+                var service = reflectHelper.TryCreateInstance(wsMeta.ServiceAssemblyPath, wsMeta.ServiceClassName);
                 var servicesToRun = new ServiceBase[]
                 {
                     service as ServiceBase
