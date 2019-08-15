@@ -16,7 +16,7 @@ namespace WinApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new ServiceManageForm());
-            Application.Run(new MainForm());
+            Application.Run(new AsyncMessageForm());
         }
     }
 }
